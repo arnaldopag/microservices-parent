@@ -1,0 +1,51 @@
+services:
+  orderpostgres:
+    image: 'postgres:latest'
+    container_name: orderpostgres
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=orders
+    ports:
+      - '5432'
+    volumes:
+      - postgre-data:/var/lib/postgresql/data
+    networks:
+      - orders
+
+  order-services:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: order-service
+    ports:
+      - "8081:8080"
+    networks:
+      orders:
+    depends_on:
+      - orderpostgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://orderpostgres:5432/orders
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - orderpostgres
+    networks:
+      - orders
+
+volumes:
+  postgre-data:
+
+networks:
+  orders:
+    driver: bridge
