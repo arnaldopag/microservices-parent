@@ -1,0 +1,8 @@
+spring:
+    application:
+        name: 'product-service'
+    data:
+        mongodb:
+            host: productmongodb
+            port: 27017
+            database: productservice
