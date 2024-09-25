@@ -17,7 +17,7 @@ services:
       ME_CONFIG_MONGODB_PORT: 27017
       ME_CONFIG_MONGODB_URL: mongodb://admin:password@productmongodb:27017/
     ports:
-      - "8081:8081"
+      - "8084:8084"
     depends_on:
       - mongodb
     networks:

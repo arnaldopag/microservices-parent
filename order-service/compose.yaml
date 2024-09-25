@@ -9,7 +9,7 @@ services:
     ports:
       - '5432'
     volumes:
-      - postgre-data:/var/lib/postgresql/data
+      - postgre-orders-data:/var/lib/postgresql/data
     networks:
       - orders
 
@@ -32,7 +32,7 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4
-    container_name: pgadmin
+    container_name: pgadmin-order
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin
@@ -44,7 +44,7 @@ services:
       - orders
 
 volumes:
-  postgre-data:
+  postgre-orders-data:
 
 networks:
   orders:

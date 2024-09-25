@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: inventory-service
+  datasource:
+    url: jdbc:postgresql://inventorypostgres:5432/inventory  # Use the service name and port defined in docker-compose
+    username: user  # Username defined in docker-compose
+    password: password  # Password defined in docker-compose
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update  # Automatically update the database schema
+    show-sql: true  # Show SQL statements in the logs
+    properties:
+      hibernate:
+        format_sql: true  # Format SQL for readability
+    sql:
+      init:
+        mode: always  # Always run SQL scripts on startup
+
+logging:
+  level:
+    org:
+      hibernate: DEBUG  # Set Hibernate logging level to DEBUG
